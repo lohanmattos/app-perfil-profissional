@@ -5,7 +5,9 @@ import {
   SafeAreaView,
   View,
   Text,
-  Image
+  Image,
+  TouchableOpacity,
+  Linking,
 } from 'react-native';
 
 import styles from './assets/styles/styles';
@@ -13,12 +15,34 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconTecnologia from 'react-native-vector-icons/Ionicons';
 
+const urlFacebook = 'https://www.facebook.com/ChinaAmendola/';
+const urlGithub = 'https://github.com/lohanmattos';
+const urlLinkedin = 'https://www.linkedin.com/in/lohan-amendola-a09b93154/';
 
 const App = () => {
 
+  const handleLink = async (props) => {
+
+    switch (props) {
+      case 'facebook':
+        await Linking.openURL(urlFacebook);
+        break;
+      case 'github':
+        await Linking.openURL(urlGithub);
+        break;
+
+      case 'linkedin':
+        await Linking.openURL(urlLinkedin);
+        break;
+
+      default:
+        break;
+
+    }
+  }
+
   return (
     <SafeAreaView style={styles.page}>
-      <StatusBar backgroundColor="#F8F8FF" barStyle={'dark-content'} />
       <View style={styles.container}>
         <Image
           source={require('./assets/img/img-perfil.jpg')}
@@ -41,21 +65,27 @@ const App = () => {
       <View style={styles.card}>
         <Text style={styles.tituloCard}>Redes Sociais</Text>
         <View style={styles.redesSociais}>
-          <Icon
-            name="facebook-square"
-            size={50}
 
-          />
-          <Icon
-            name="github-square"
-            size={50}
+          <TouchableOpacity onPressIn={() => handleLink('facebook')}>
+            <Icon
+              name="facebook-square"
+              size={50}
+            />
+          </TouchableOpacity>
 
-          />
-          <Icon
-            name="linkedin-square"
-            size={50}
+          <TouchableOpacity onPressIn={() => handleLink('github')}>
+            <Icon
+              name="github-square"
+              size={50}
+            />
+          </TouchableOpacity>
 
-          />
+          <TouchableOpacity onPressIn={() => handleLink('linkedin')}>
+            <Icon
+              name="linkedin-square"
+              size={50}
+            />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -79,16 +109,11 @@ const App = () => {
           <IconTecnologia name="logo-javascript" size={50} />
           <IconTecnologia name="logo-nodejs" size={50} />
           <IconTecnologia name="logo-react" size={50} />
-
         </View>
       </View>
-
     </SafeAreaView>
 
   );
-
-
-
 };
 
 
